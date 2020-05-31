@@ -16,11 +16,39 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
+
+    implementation 'com.koushikdutta.async:androidasync:2.+'
+    implementation 'com.alibaba:fastjson:1.1.71.android'
+    implementation 'org.webrtc:google-webrtc:1.0.+'
 }
 
 apply from: "$project.rootDir/config/android-checkstyle.gradle"
+
+
+project.ext.SCRCPY_DIR = "C:\\Users\\kingsoft\\Downloads\\scrcpy-win64-v1.14"
+
+task copyServer(type: Copy) {
+    dependsOn(assemble)
+
+    from "build/outputs/apk/debug/server-debug.apk"
+    into { project.SCRCPY_DIR }
+    rename("server-debug.apk", "scrcpy-server")
+}
+
+task launchServer(type: Exec) {
+    dependsOn(copyServer)
+
+    println("C:\\Users\\kingsoft\\Downloads\\scrcpy-win64-v1.14")
+    workingDir "C:\\Users\\kingsoft\\Downloads\\scrcpy-win64-v1.14"
+    commandLine "C:\\Users\\kingsoft\\Downloads\\scrcpy-win64-v1.14\\scrcpy.exe"
+
+}

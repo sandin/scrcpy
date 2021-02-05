@@ -64,7 +64,7 @@ sudo apt install gcc git pkg-config meson ninja-build \
                  libsdl2-dev
 
 # server build dependencies
-sudo apt install openjdk-8-jdk
+sudo apt install openjdk-11-jdk
 ```
 
 On old versions (like Ubuntu 16.04), `meson` is too old. In that case, install
@@ -176,8 +176,8 @@ Additionally, if you want to build the server, install Java 8 from Caskroom, and
 make it avaliable from the `PATH`:
 
 ```bash
-brew tap caskroom/versions
-brew cask install java8
+brew tap homebrew/cask-versions
+brew cask install adoptopenjdk/openjdk/adoptopenjdk8
 export JAVA_HOME="$(/usr/libexec/java_home --version 1.8)"
 export PATH="$JAVA_HOME/bin:$PATH"
 ```
@@ -190,12 +190,17 @@ See [pierlon/scrcpy-docker](https://github.com/pierlon/scrcpy-docker).
 ## Common steps
 
 If you want to build the server, install the [Android SDK] (_Android Studio_),
-and set `ANDROID_HOME` to its directory. For example:
+and set `ANDROID_SDK_ROOT` to its directory. For example:
 
 [Android SDK]: https://developer.android.com/studio/index.html
 
 ```bash
-export ANDROID_HOME=~/android/sdk
+# Linux
+export ANDROID_SDK_ROOT=~/Android/Sdk
+# Mac
+export ANDROID_SDK_ROOT=~/Library/Android/sdk
+# Windows
+set ANDROID_SDK_ROOT=%LOCALAPPDATA%\Android\sdk
 ```
 
 If you don't want to build the server, use the [prebuilt server].
@@ -249,10 +254,10 @@ You can then [run](README.md#run) _scrcpy_.
 
 ## Prebuilt server
 
- - [`scrcpy-server-v1.14`][direct-scrcpy-server]  
-   _(SHA-256: 1d1b18a2b80e956771fd63b99b414d2d028713a8f12ddfa5a369709ad4295620)_
+ - [`scrcpy-server-v1.17`][direct-scrcpy-server]  
+   _(SHA-256: 11b5ad2d1bc9b9730fb7254a78efd71a8ff46b1938ff468e47a21b653a1b6725_
 
-[direct-scrcpy-server]: https://github.com/Genymobile/scrcpy/releases/download/v1.14/scrcpy-server-v1.14
+[direct-scrcpy-server]: https://github.com/Genymobile/scrcpy/releases/download/v1.17/scrcpy-server-v1.17
 
 Download the prebuilt server somewhere, and specify its path during the Meson
 configuration:
